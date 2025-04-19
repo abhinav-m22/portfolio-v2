@@ -33,16 +33,13 @@ export default function AboutSection() {
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="space-y-4">
               <p className="text-lg">
-                I'm a creative developer with a passion for building immersive digital experiences that blend design and
-                technology.
+                I'm a creative developer with a passion for building immersive digital experiences that blend design, technology, and strong backend foundations.
               </p>
               <p className="text-lg">
-                With over 2 years of experience in web development, I specialize in creating interactive, visually
-                stunning websites and applications that push the boundaries of what's possible on the web.
+                With over 2 years of experience in Software Development, I specialize in creating interactive, visually stunning tools and applications that push the boundaries of what's possible on the web.
               </p>
               <p className="text-lg">
-                My approach combines technical expertise with a keen eye for design, allowing me to transform complex
-                ideas into elegant, user-friendly solutions.
+                My approach combines technical expertise using modern frameworks and scalable systems to transform complex ideas into simple solutions.
               </p>
             </div>
 

@@ -93,7 +93,7 @@ export default function ContactSection() {
                 mind or just want to say hello!
               </p>
 
-              <div className="space-y-6">
+              {/* <div className="space-y-6">
                 {contactInfo.map((item, index) => (
                   <motion.div
                     key={index}
@@ -121,17 +121,21 @@ export default function ContactSection() {
                     </Card>
                   </motion.div>
                 ))}
-              </div>
+              </div> */}
 
               <div className="mt-8">
                 <h3 className="text-xl font-bold mb-4">My Availability</h3>
                 <div className="p-4 border rounded-lg">
                   <div className="flex items-center mb-2">
                     <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                    <span className="font-medium">Currently Available for Freelance</span>
+                    <span className="font-medium text-lg">Currently Available for Freelance</span>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    I'm currently taking on new projects starting from June 2023.
+                  <p className="text-base text-muted-foreground">
+                    Actively looking for exciting freelance opportunities.
+                  </p>
+                  <br/>
+                  <p className="text-sm">
+                  Feel free to reach out to discuss your project requirements, timelines, and goals.
                   </p>
                 </div>
               </div>
