@@ -2,13 +2,16 @@
 
 import { useState, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import Image from "next/image"
 
 type Skill = {
   name: string
   level: number
-  category: "frontend" | "backend" | "design" | "tools"
+  category: "frontend" | "backend" | "db" | "tools" | "#"
+  icon: string
+  color: string
 }
 
 export default function SkillsSection() {
@@ -22,55 +25,59 @@ export default function SkillsSection() {
   const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, 100])
 
   const skills: Skill[] = [
-    { name: "React", level: 90, category: "frontend" },
-    { name: "Next.js", level: 85, category: "frontend" },
-    { name: "TypeScript", level: 80, category: "frontend" },
-    { name: "Tailwind CSS", level: 95, category: "frontend" },
-    { name: "Framer Motion", level: 75, category: "frontend" },
-    { name: "Three.js", level: 70, category: "frontend" },
-    { name: "GSAP", level: 65, category: "frontend" },
-    { name: "Node.js", level: 75, category: "backend" },
-    { name: "Express", level: 70, category: "backend" },
-    { name: "MongoDB", level: 65, category: "backend" },
-    { name: "PostgreSQL", level: 60, category: "backend" },
-    { name: "GraphQL", level: 55, category: "backend" },
-    { name: "Figma", level: 80, category: "design" },
-    { name: "Adobe XD", level: 70, category: "design" },
-    { name: "Photoshop", level: 65, category: "design" },
-    { name: "Illustrator", level: 60, category: "design" },
-    { name: "Git", level: 85, category: "tools" },
-    { name: "Docker", level: 60, category: "tools" },
-    { name: "Jest", level: 70, category: "tools" },
-    { name: "Webpack", level: 65, category: "tools" },
-  ]
-
+    { name: "React", level: 90, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "#61DAFB" },
+    { name: "Next.js", level: 85, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg", color: "#000000" }, // fallback to line icon
+    { name: "TypeScript", level: 80, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", color: "#3178C6" },
+    { name: "Tailwind CSS", level: 95, category: "frontend", icon: "https://cdn.simpleicons.org/tailwindcss/06B6D4", color: "#06B6D4" },
+    { name: "JavaScript", level: 90, category: "frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", color: "#F7DF1E" },
+    { name: "Node.js", level: 75, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", color: "#339933" },
+    { name: "Golang", level: 70, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg", color: "#00ADD8" },
+    { name: "Django", level: 70, category: "backend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg", color: "#092E20" }, // switched to plain variant
+    { name: "MongoDB", level: 65, category: "db", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "#47A248" },
+    { name: "PostgreSQL", level: 60, category: "db", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", color: "#336791" },
+    { name: "SQL", level: 60, category: "db", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", color: "#4479A1" },
+    { name: "Java", level: 70, category: "#", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", color: "#007396" },
+    { name: "Python", level: 80, category: "#", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", color: "#3776AB" },
+    { name: "Git", level: 85, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "#F05032" },
+    { name: "AWS", level: 85, category: "tools", icon: "https://www.svgrepo.com/show/448266/aws.svg", color: "#FF9900" },
+    { name: "Docker", level: 60, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "#2496ED" },
+    { name: "Linux", level: 70, category: "tools", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "#FCC624" },
+    // c, c++
+    { name: "C", level: 70, category: "#", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", color: "#00599C" },
+    { name: "C++", level: 70, category: "#", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", color: "#00599C" },
+    // firebase
+    { name: "Firebase", level: 70, category: "db", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg", color: "#FFCA28" },
+  ];
+  
   const [activeTab, setActiveTab] = useState("all")
-
   const filteredSkills = activeTab === "all" ? skills : skills.filter((skill) => skill.category === activeTab)
 
   return (
-    <section id="skills" ref={sectionRef} className="py-20 md:py-32 bg-muted/50">
-      <div className="container mx-auto px-4">
-        <motion.div style={{ opacity, y }} className="max-wxl mx-auto">
+    <section id="skills" ref={sectionRef} className="py-20 md:py-32 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/5" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50" />
+      
+      <div className="container mx-auto px-4 relative">
+        <motion.div style={{ opacity, y }} className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold mb-8 font-space">
             My <span className="text-primary">Skills</span>
           </h2>
 
           <Tabs defaultValue="all" className="mb-12">
-            <TabsList className="grid grid-cols-5 mb-8">
-              <TabsTrigger value="all" onClick={() => setActiveTab("all")}>
+            <TabsList className="grid grid-cols-5 mb-8 bg-background/50 backdrop-blur-sm border border-primary/10">
+              <TabsTrigger value="all" onClick={() => setActiveTab("all")} className="data-[state=active]:bg-primary/10">
                 All
               </TabsTrigger>
-              <TabsTrigger value="frontend" onClick={() => setActiveTab("frontend")}>
+              <TabsTrigger value="frontend" onClick={() => setActiveTab("frontend")} className="data-[state=active]:bg-primary/10">
                 Frontend
               </TabsTrigger>
-              <TabsTrigger value="backend" onClick={() => setActiveTab("backend")}>
+              <TabsTrigger value="backend" onClick={() => setActiveTab("backend")} className="data-[state=active]:bg-primary/10">
                 Backend
               </TabsTrigger>
-              <TabsTrigger value="design" onClick={() => setActiveTab("design")}>
-                Design
+              <TabsTrigger value="db" onClick={() => setActiveTab("db")} className="data-[state=active]:bg-primary/10">
+                Databases
               </TabsTrigger>
-              <TabsTrigger value="tools" onClick={() => setActiveTab("tools")}>
+              <TabsTrigger value="tools" onClick={() => setActiveTab("tools")} className="data-[state=active]:bg-primary/10">
                 Tools
               </TabsTrigger>
             </TabsList>
@@ -84,29 +91,13 @@ export default function SkillsSection() {
             <TabsContent value="backend" className="mt-0">
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
-            <TabsContent value="design" className="mt-0">
+            <TabsContent value="db" className="mt-0">
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
             <TabsContent value="tools" className="mt-0">
               <SkillsGrid skills={filteredSkills} />
             </TabsContent>
           </Tabs>
-
-          <div className="flex flex-wrap gap-2 justify-center">
-            {skills.map((skill) => (
-              <motion.div
-                key={skill.name}
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-              >
-                <Badge variant="outline" className="text-sm py-1.5 px-3">
-                  {skill.name}
-                </Badge>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>
@@ -115,29 +106,43 @@ export default function SkillsSection() {
 
 function SkillsGrid({ skills }: { skills: Skill[] }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-      {skills.map((skill) => (
-        <motion.div
-          key={skill.name}
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative"
-        >
-          <div className="flex justify-between mb-1">
-            <span className="font-medium">{skill.name}</span>
-            <span className="text-sm text-muted-foreground">{skill.level}%</span>
-          </div>
-          <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-primary"
-              initial={{ width: 0 }}
-              whileInView={{ width: `${skill.level}%` }}
-              transition={{ duration: 1, delay: 0.1 }}
-            />
-          </div>
-        </motion.div>
-      ))}
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+      <TooltipProvider>
+        {skills.map((skill, index) => (
+          <motion.div
+            key={skill.name}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.05 }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            className="relative group"
+          >
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div 
+                  className="relative aspect-square w-full rounded-lg bg-background/50 backdrop-blur-sm p-4 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:shadow-primary/20 border border-primary/10"
+                  style={{
+                    '--skill-color': skill.color,
+                  } as React.CSSProperties}
+                >
+                  <div className="absolute inset-0 rounded-lg bg-[var(--skill-color)]/5 transition-colors duration-300 group-hover:bg-[var(--skill-color)]/10" />
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--skill-color)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Image
+                    src={skill.icon}
+                    alt={skill.name}
+                    fill
+                    className="object-contain p-2"
+                  />
+                  <div className="absolute inset-0 rounded-lg bg-primary/0 transition-colors duration-300 group-hover:bg-primary/5" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent className="bg-background/50 backdrop-blur-sm border-primary/10">
+                <p className="font-medium">{skill.name}</p>
+              </TooltipContent>
+            </Tooltip>
+          </motion.div>
+        ))}
+      </TooltipProvider>
     </div>
   )
 }

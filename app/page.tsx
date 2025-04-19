@@ -15,8 +15,8 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
-        <SkillsSection />
         <ProjectsSection />
+        <SkillsSection />
         {/* <ServicesSection /> */}
         {/* <NowPlayingSection /> */}
         {/* <ContactSection /> */}
