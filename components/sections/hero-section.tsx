@@ -2,7 +2,10 @@
 
 import { useRef } from "react"
 import { motion } from "framer-motion"
-import { ArrowDown } from "lucide-react"
+import X from "@/components/icons/x"
+import Linkedin from "@/components/icons/linkedin"
+import Github from "@/components/icons/github"
+import { Mail, ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import HeroBackground from "@/components/hero-background"
 
@@ -15,6 +18,29 @@ export default function HeroSection() {
       aboutSection.scrollIntoView({ behavior: "smooth" })
     }
   }
+
+  const socialLinks = [
+    {
+      icon: <Github className="h-6 w-6" />,
+      href: "https://github.com/abhinav-m22",
+      label: "GitHub"
+    },
+    {
+      icon: <Mail className="h-6 w-6" />,
+      href: "mailto:abhinavpm05@gmail.com",
+      label: "Email"
+    },
+    {
+      icon: <Linkedin className="h-6 w-6" />,
+      href: "https://www.linkedin.com/in/abhinav-mahajan-b805b022a/",
+      label: "LinkedIn"
+    },
+    {
+      icon: <X className="h-6 w-6" />,
+      href: "https://twitter.com/abhinav_m22",
+      label: "Twitter"
+    }
+  ]
 
   return (
     <section
@@ -42,6 +68,37 @@ export default function HeroSection() {
         >
           A software developer with a passion for building innovative solutions.
         </motion.p>
+
+        <motion.div
+          className="flex gap-4 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          {socialLinks.map((link, index) => (
+            <motion.a
+              key={index}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group p-3 rounded-full bg-background/50 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-colors"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+            >
+              <span className="sr-only">{link.label}</span>
+              {link.icon}
+              <motion.div
+                className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"
+                initial={{ scale: 0.8 }}
+                whileHover={{ scale: 1.2 }}
+                transition={{ duration: 0.2 }}
+              />
+            </motion.a>
+          ))}
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
