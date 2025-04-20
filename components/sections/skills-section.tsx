@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import Image from "next/image"
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip"
 
 type Skill = {
   name: string
@@ -114,30 +115,43 @@ function SkillsGrid({ skills }: { skills: Skill[] }) {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileHover={{ scale: 1.05 }}
             className="relative group"
           >
             <Tooltip>
               <TooltipTrigger asChild>
                 <div 
-                  className="relative aspect-square w-full rounded-lg bg-background/50 backdrop-blur-sm p-4 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:shadow-primary/20 border border-primary/10"
+                  className="relative aspect-square w-full rounded-xl bg-background/50 backdrop-blur-sm p-3 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:shadow-primary/20 border border-primary/10"
                   style={{
                     '--skill-color': skill.color,
                   } as React.CSSProperties}
                 >
-                  <div className="absolute inset-0 rounded-lg bg-[var(--skill-color)]/5 transition-colors duration-300 group-hover:bg-[var(--skill-color)]/10" />
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--skill-color)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <Image
-                    src={skill.icon}
-                    alt={skill.name}
-                    fill
-                    className="object-contain p-2"
-                  />
-                  <div className="absolute inset-0 rounded-lg bg-primary/0 transition-colors duration-300 group-hover:bg-primary/5" />
+                  <div className="absolute inset-0 rounded-xl bg-[var(--skill-color)]/5 transition-colors duration-300 group-hover:bg-[var(--skill-color)]/10" />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[var(--skill-color)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative h-full w-full flex items-center justify-center">
+                    <Image
+                      src={skill.icon}
+                      alt={skill.name}
+                      width={40}
+                      height={40}
+                      className="object-contain transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
                 </div>
               </TooltipTrigger>
-              <TooltipContent className="bg-background/50 backdrop-blur-sm border-primary/10">
-                <p className="font-medium">{skill.name}</p>
+              <TooltipContent 
+                side="top"
+                className="bg-background/80 backdrop-blur-sm border-primary/10"
+              >
+                <div className="text-center">
+                  <p className="font-medium">{skill.name}</p>
+                  {/*<div className="w-full bg-primary/10 rounded-full h-1.5 mt-1">
+                    <div 
+                      className="bg-primary h-1.5 rounded-full transition-all duration-300"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div> */}
+                </div>
               </TooltipContent>
             </Tooltip>
           </motion.div>

@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { Calendar, MapPin, ChevronRight, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { GlowingEffect } from "@/components/ui/glowing-effect"
 
 type Experience = {
   company: string
@@ -100,13 +101,13 @@ export default function ExperienceSection() {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group"
+                className="group relative"
                 style={{
                   '--exp-color': exp.color,
                 } as React.CSSProperties}
               >
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--exp-color)]/10 to-[var(--exp-color)]/5 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--exp-color)] to-primary rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500" />
                   <div className="relative bg-background/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/10 shadow-lg hover:shadow-xl transition-all duration-300">
                     <div className="flex flex-col md:flex-row gap-6">
                       <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg">
