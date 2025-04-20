@@ -45,7 +45,7 @@ export default function ProjectsSection() {
       description: "My personal portfolio showcasing my work and skills",
       image: "/assets/projects/portfolio.png",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI", "Framer Motion",],
-      link: "#",
+      link: "https://abhinav-mahajan.vercel.app/",
       github: "https://github.com/abhinav-m22/portfolio-v2",
       details: "This portfolio is a showcase of my work and skills as a developer. It features a clean and modern design, with sections highlighting my projects, skills, and experience. The site is built using Next.js and TypeScript, ensuring a fast and responsive user experience. The use of Tailwind CSS allows for easy customization and styling, while Framer Motion adds smooth animations to enhance the overall look and feel.",
     },
