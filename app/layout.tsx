@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { WeirdThemeProvider } from "@/components/weird-theme-provider"
 import CustomCursor from "@/components/custom-cursor"
 import Navigation from "@/components/navigation"
 
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <WeirdThemeProvider />
           {/* <CustomCursor /> */}
           <Navigation />
           {children}

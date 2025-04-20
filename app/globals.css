@@ -49,6 +49,8 @@
   }
 
   .weird {
+    /* These values will be overridden by the WeirdThemeProvider */
+    /* Default values are provided as fallback */
     --background: 260 60% 5%;
     --foreground: 260 60% 98%;
     --card: 260 60% 5%;
