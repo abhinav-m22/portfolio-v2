@@ -4,6 +4,7 @@ import { useState, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import { ExternalLink, Github, X } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card"
@@ -45,7 +46,7 @@ export default function ProjectsSection() {
       description: "My personal portfolio showcasing my work and skills",
       image: "/assets/projects/portfolio.png",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI", "Framer Motion",],
-      link: "#",
+      link: "https://abhinav-mahajan.vercel.app/",
       github: "https://github.com/abhinav-m22/portfolio-v2",
       details: "This portfolio is a showcase of my work and skills as a developer. It features a clean and modern design, with sections highlighting my projects, skills, and experience. The site is built using Next.js and TypeScript, ensuring a fast and responsive user experience. The use of Tailwind CSS allows for easy customization and styling, while Framer Motion adds smooth animations to enhance the overall look and feel.",
     },
@@ -210,57 +211,67 @@ export default function ProjectsSection() {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl">{selectedProject?.title}</DialogTitle>
-            <DialogDescription className="text-muted-foreground">{selectedProject?.description}</DialogDescription>
+        <DialogContent>
+          <DialogHeader className="space-y-1">
+            <DialogTitle className="text-lg font-semibold leading-none">{selectedProject?.title}</DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground leading-normal">{selectedProject?.description}</DialogDescription>
           </DialogHeader>
-          <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </DialogClose>
 
-          <div className="relative h-64 md:h-80 overflow-hidden rounded-md">
+          <div className="relative aspect-[21/9] w-full overflow-hidden rounded-md">
             {selectedProject && (
               <Image
                 src={selectedProject.image || "/placeholder.svg"}
                 alt={selectedProject.title}
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 85vw, (max-width: 1200px) 80vw, 70vw"
+                priority
               />
             )}
           </div>
 
-          <div className="space-y-4">
-            <p>{selectedProject?.details}</p>
-
-            <div className="flex flex-wrap gap-2">
-              {selectedProject?.tags.map((tag, i) => (
-                <Badge key={i} variant="outline">
+          <div className="space-y-2">
+            <div className="flex flex-wrap gap-1">
+              {selectedProject?.tags.map((tag, index) => (
+                <Badge key={index} variant="secondary" className="text-[10px] px-1 py-0">
                   {tag}
                 </Badge>
               ))}
             </div>
 
-            <div className="flex gap-4">
-              {selectedProject?.link !== "#" && (
-                <Button asChild>
-                  <a href={selectedProject?.link || "#"} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Visit Project
-                  </a>
+            <div className="text-xs text-muted-foreground leading-normal">
+              <p>{selectedProject?.details}</p>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5">
+              {selectedProject?.link && selectedProject.link !== "#" && (
+                <Button asChild variant="outline" size="sm" className="h-7 px-2 text-xs">
+                  <Link href={selectedProject.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-1.5 h-3 w-3" />
+                    Demo
+                  </Link>
                 </Button>
               )}
-              <Button variant="outline" asChild>
-                <a href={selectedProject?.github || "#"} target="_blank" rel="noopener noreferrer">
-                  <Github className="h-4 w-4 mr-2" />
-                  View Code
-                </a>
-              </Button>
+              {selectedProject?.github && (
+                <Button asChild variant="outline" size="sm" className="h-7 px-2 text-xs">
+                  <Link href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-1.5 h-3 w-3" />
+                    Code
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </DialogContent>
       </Dialog>
+      <div className="flex justify-center items-center">
+        <Link href="https://github.com/abhinav-m22" target="_blank">
+          <button className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-primary/20 bg-background px-6 font-medium text-primary transition-all hover:border-primary/40 hover:bg-primary/5">
+            <span className="relative">View More Projects</span>
+            <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"></span>
+          </button>
+        </Link>
+      </div>
     </section>
   )
 }
