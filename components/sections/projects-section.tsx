@@ -56,7 +56,7 @@ export default function ProjectsSection() {
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "FastAPI", "PostgreSQL", "OpenAI", "Bright Data Web Scraper API", "AWS S3"],
       link: "https://jobscout-ai.vercel.app/",
       github: "https://github.com/abhinav-m22/jobscout.ai",
-      details: `This platform revolutionizes job hunting by leveraging AI and Bright Data's Web Scraper API to provide personalized, real-time job recommendations. Users upload their resume, and the AI matches them with tailored job opportunities based on skills, preferences, and aspirations. The platform offers an intuitive, conversational job search, personalized dashboards to track applications, and interview preparation tools. It simplifies the job search experience by eliminating the need for repetitive filtering and manual searching, saving time and reducing stress while enhancing career decision-making.`,
+      details: `This platform revolutionizes job hunting by leveraging AI and Bright Data's Web Scraper API to provide personalized, real-time job recommendations. Users upload their resume, and the AI matches them with tailored job opportunities based on skills, preferences, and aspirations. The platform offers an intuitive, conversational job search, and interview preparation tools. It simplifies the job search experience by eliminating the need for repetitive filtering and manual searching, saving time in career decision-making.`,
     },
     {
       title: "FashionGen",
@@ -210,17 +210,17 @@ export default function ProjectsSection() {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl">{selectedProject?.title}</DialogTitle>
-            <DialogDescription className="text-muted-foreground">{selectedProject?.description}</DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">{selectedProject?.title}</DialogTitle>
+            <DialogDescription className="text-xs sm:text-sm text-muted-foreground">{selectedProject?.description}</DialogDescription>
           </DialogHeader>
           <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>
           </DialogClose>
 
-          <div className="relative h-64 md:h-80 overflow-hidden rounded-md">
+          <div className="relative h-48 md:h-64 overflow-hidden rounded-md">
             {selectedProject && (
               <Image
                 src={selectedProject.image || "/placeholder.svg"}
@@ -231,29 +231,29 @@ export default function ProjectsSection() {
             )}
           </div>
 
-          <div className="space-y-4">
-            <p>{selectedProject?.details}</p>
+          <div className="space-y-3">
+            <p className="text-[11px] sm:text-sm text-muted-foreground">{selectedProject?.details}</p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {selectedProject?.tags.map((tag, i) => (
-                <Badge key={i} variant="outline">
+                <Badge key={i} variant="outline" className="text-[10px]">
                   {tag}
                 </Badge>
               ))}
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               {selectedProject?.link !== "#" && (
-                <Button asChild>
+                <Button asChild size="sm">
                   <a href={selectedProject?.link || "#"} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" />
+                    <ExternalLink className="h-3 w-3 mr-1" />
                     Visit Project
                   </a>
                 </Button>
               )}
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild size="sm">
                 <a href={selectedProject?.github || "#"} target="_blank" rel="noopener noreferrer">
-                  <Github className="h-4 w-4 mr-2" />
+                  <Github className="h-3 w-3 mr-1" />
                   View Code
                 </a>
               </Button>
