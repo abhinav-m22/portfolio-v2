@@ -70,9 +70,10 @@ export default function Navigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-2xl font-bold font-space"
+            className="text-2xl font-bold font-agustina"
           >
-            <span className="text-primary">P</span>ortfolio
+            {/* <span className="text-primary">P</span>ortfolio */}
+            Abhi
           </motion.div>
 
           <div className="hidden md:flex items-center gap-8">
