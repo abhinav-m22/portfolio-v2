@@ -6,6 +6,7 @@ import Image from "next/image"
 import { ExternalLink, Github, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card"
 import {
   Dialog,
   DialogContent,
@@ -126,65 +127,83 @@ export default function ProjectsSection() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="group relative overflow-hidden rounded-lg bg-card"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <CardContainer key={index} className="inter-var">
+                <CardBody className="bg-card relative group/card dark:hover:shadow-2xl dark:hover:shadow-primary/50 hover:shadow-xl hover:shadow-primary/50 dark:bg-card dark:border-white/[0.2] border-black/[0.1] w-full h-full rounded-xl p-6 border flex flex-col">
+                  <CardItem
+                    translateZ="50"
+                    className="text-xl font-bold text-neutral-600 dark:text-white"
+                  >
+                    {project.title}
+                  </CardItem>
+                  <CardItem
+                    as="p"
+                    translateZ="60"
+                    className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+                  >
+                    {project.description}
+                  </CardItem>
+                  <CardItem translateZ="100" className="w-full mt-4">
+                    <div className="relative h-48 w-full overflow-hidden rounded-xl">
+                      <Image
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </CardItem>
+                  <div className="flex justify-between items-center mt-4">
+                    <CardItem
+                      translateZ={20}
+                      as="div"
+                      className="flex flex-wrap gap-2"
+                    >
+                      {project.tags.slice(0, 3).map((tag, i) => (
+                        <Badge key={i} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                      {project.tags.length > 3 && (
+                        <Badge variant="outline" className="text-xs">
+                          +{project.tags.length - 3}
+                        </Badge>
+                      )}
+                    </CardItem>
+                    <CardItem
+                      translateZ={20}
+                      as="div"
+                      className="flex gap-2"
+                    >
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">
+                        <Github className="h-4 w-4 mr-1" />
+                        Code
+                      </a>
+                      {project?.link !== "#" && (
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">
+                          <ExternalLink className="h-4 w-4 mr-1" />
+                          Demo
+                        </a>
+                      )}
+                    </CardItem>
+                  </div>
+                  <CardItem
+                    translateZ={20}
+                    as="div"
+                    className="mt-4"
+                  >
                     <Button
                       variant="outline"
                       size="sm"
-                      className="bg-background/20 backdrop-blur-sm border-white/20 text-white hover:bg-background/40"
+                      className="w-full"
                       onClick={() => setSelectedProject(project)}
                     >
                       View Details
                     </Button>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.slice(0, 3).map((tag, i) => (
-                      <Badge key={i} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                    {project.tags.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{project.tags.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-1" />
-                        Code
-                      </a>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
-                      {project?.link !== "#" && <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        Demo
-                      </a>}
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
+                  </CardItem>
+                </CardBody>
+              </CardContainer>
             ))}
           </div>
         </motion.div>
@@ -224,13 +243,14 @@ export default function ProjectsSection() {
             </div>
 
             <div className="flex gap-4">
-            {selectedProject?.link !== "#" && <Button asChild>
-                <a href={selectedProject?.link || "#"} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Visit Project
-                </a>
-              </Button>}
-              
+              {selectedProject?.link !== "#" && (
+                <Button asChild>
+                  <a href={selectedProject?.link || "#"} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Visit Project
+                  </a>
+                </Button>
+              )}
               <Button variant="outline" asChild>
                 <a href={selectedProject?.github || "#"} target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4 mr-2" />
