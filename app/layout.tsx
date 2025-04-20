@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { WeirdThemeProvider } from "@/components/weird-theme-provider"
 import CustomCursor from "@/components/custom-cursor"
 import Navigation from "@/components/navigation"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
           {/* <CustomCursor /> */}
           <Navigation />
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
