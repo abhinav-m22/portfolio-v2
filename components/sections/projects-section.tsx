@@ -104,7 +104,7 @@ export default function ProjectsSection() {
   const filteredProjects = filter === "all" ? projects : projects.filter((project) => project.tags.includes(filter))
 
   return (
-    <section id="projects" ref={sectionRef} className="py-20 md:py-32 bg-muted/50">
+    <section id="projects" ref={sectionRef} className="md:py-32 bg-muted/50">
       <div className="container mx-auto px-4">
         <motion.div style={{ opacity, y }} className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold mb-8 font-space">
