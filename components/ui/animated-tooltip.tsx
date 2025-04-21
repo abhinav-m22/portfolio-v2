@@ -8,6 +8,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
+import Image from "next/image";
 
 export const AnimatedTooltip = ({
   items,
@@ -17,6 +18,7 @@ export const AnimatedTooltip = ({
     name: string;
     designation: string;
     image: string;
+    color: string;
   }[];
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -41,7 +43,7 @@ export const AnimatedTooltip = ({
     <>
       {items.map((item, idx) => (
         <div
-          className="group relative -mr-4"
+          className="group relative"
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -73,18 +75,28 @@ export const AnimatedTooltip = ({
                 <div className="relative z-30 text-base font-bold text-white">
                   {item.name}
                 </div>
-                <div className="text-xs text-white">{item.designation}</div>
               </motion.div>
             )}
           </AnimatePresence>
-          <img
+          <div 
             onMouseMove={handleMouseMove}
-            height={100}
-            width={100}
-            src={item.image}
-            alt={item.name}
-            className="relative !m-0 h-14 w-14 rounded-full border-2 border-white object-cover object-top !p-0 transition duration-500 group-hover:z-30 group-hover:scale-105"
-          />
+            className="relative aspect-square w-full rounded-xl bg-muted/50 backdrop-blur-sm p-3 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:shadow-primary/20 border border-primary/10 group-hover:scale-105"
+            style={{
+              '--skill-color': item.color,
+            } as React.CSSProperties}
+          >
+            <div className="absolute inset-0 rounded-xl bg-[var(--skill-color)]/10 transition-colors duration-300 group-hover:bg-[var(--skill-color)]/20" />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[var(--skill-color)]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative h-full w-full flex items-center justify-center">
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={40}
+                height={40}
+                className="object-contain transition-transform duration-300"
+              />
+            </div>
+          </div>
         </div>
       ))}
     </>

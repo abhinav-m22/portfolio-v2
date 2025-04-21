@@ -106,57 +106,30 @@ export default function SkillsSection() {
 }
 
 function SkillsGrid({ skills }: { skills: Skill[] }) {
+  const tooltipItems = skills.map((skill, index) => ({
+    id: index,
+    name: skill.name,
+    designation: "",
+    image: skill.icon,
+    color: skill.color
+  }));
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-      <TooltipProvider>
-        {skills.map((skill, index) => (
-          <motion.div
-            key={skill.name}
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
-            whileHover={{ scale: 1.05 }}
-            className="relative group"
-          >
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div 
-                  className="relative aspect-square w-full rounded-xl bg-background/50 backdrop-blur-sm p-3 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:shadow-primary/20 border border-primary/10"
-                  style={{
-                    '--skill-color': skill.color,
-                  } as React.CSSProperties}
-                >
-                  <div className="absolute inset-0 rounded-xl bg-[var(--skill-color)]/5 transition-colors duration-300 group-hover:bg-[var(--skill-color)]/10" />
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[var(--skill-color)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative h-full w-full flex items-center justify-center">
-                    <Image
-                      src={skill.icon}
-                      alt={skill.name}
-                      width={40}
-                      height={40}
-                      className="object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent 
-                side="top"
-                className="bg-background/80 backdrop-blur-sm border-primary/10"
-              >
-                <div className="text-center">
-                  <p className="font-medium">{skill.name}</p>
-                  {/*<div className="w-full bg-primary/10 rounded-full h-1.5 mt-1">
-                    <div 
-                      className="bg-primary h-1.5 rounded-full transition-all duration-300"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div> */}
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </motion.div>
-        ))}
-      </TooltipProvider>
-    </div>
-  )
+    <motion.div 
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.05,
+          },
+        },
+      }}
+    >
+      <AnimatedTooltip items={tooltipItems} />
+    </motion.div>
+  );
 }
