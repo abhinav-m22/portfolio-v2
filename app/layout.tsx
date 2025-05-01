@@ -28,7 +28,30 @@ export const metadata: Metadata = {
     ],
     apple: { url: "/favicon.png" }
   },
-}
+  openGraph: {
+    title: "Abhinav's Portfolio",
+    description: "Interactive & visually captivating personal portfolio",
+    url: "https://abhinav-mahajan.vercel.app",
+    siteName: "Abhinav Mahajan",
+    images: [
+      {
+        url: "https://opengraph.b-cdn.net/production/images/ceeff8e2-433a-4a46-9339-2280545c6b91.png?token=k8PNoiziHvtg7sFydRpgeRYxxGAsep-zrD6Mmzw4lZ0&height=525&width=1200&expires=33282100329",
+        width: 1200,
+        height: 525,
+        alt: "Abhinav's Portfolio Preview"
+      }
+    ],
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Abhinav's Portfolio",
+    description: "Interactive & visually captivating personal portfolio",
+    images: [
+      "https://opengraph.b-cdn.net/production/images/ceeff8e2-433a-4a46-9339-2280545c6b91.png?token=k8PNoiziHvtg7sFydRpgeRYxxGAsep-zrD6Mmzw4lZ0&height=525&width=1200&expires=33282100329"
+    ],
+  }
+};
 
 export default function RootLayout({
   children,
