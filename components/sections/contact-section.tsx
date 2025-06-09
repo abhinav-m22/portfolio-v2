@@ -35,27 +35,33 @@ export default function ContactSection() {
     setFormState((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setIsSubmitting(true)
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+  try {
+    const formspreeUrl = process.env.NEXT_PUBLIC_FORMSPREE_URL ?? "";
+    if (!formspreeUrl) {
+      throw new Error("FORMSPREE_URL environment variable is not set.");
+    }
+    const response = await fetch(formspreeUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formState),
+    })
+
+    if (response.ok) {
       setIsSubmitted(true)
-      setFormState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      })
-
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-      }, 5000)
-    }, 1500)
+      setFormState({ name: "", email: "", subject: "", message: "" })
+    }
+  } catch (error) {
+    console.error('Error:', error)
   }
+  
+  setIsSubmitting(false)
+}
 
   const contactInfo = [
     {
