@@ -66,7 +66,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <WeirdThemeProvider />
           {/* <CustomCursor /> */}
           <Navigation />
