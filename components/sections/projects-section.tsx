@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog"
+import Link from "next/link"
 
 type Project = {
   title: string
@@ -205,6 +206,20 @@ export default function ProjectsSection() {
                 </CardBody>
               </CardContainer>
             ))}
+          </div>
+          <div className="flex justify-center mt-8">
+            <Link
+              href="https://github.com/abhinav-m22"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
+                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,theme(colors.primary.DEFAULT)_0%,theme(colors.secondary.DEFAULT)_50%,theme(colors.primary.DEFAULT)_100%)]" />
+                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-background px-3 py-1 text-sm font-medium text-foreground backdrop-blur-3xl">
+                  View More Projects
+                </span>
+              </button>
+            </Link>
           </div>
         </motion.div>
       </div>
