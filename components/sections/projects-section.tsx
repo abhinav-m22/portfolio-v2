@@ -42,13 +42,13 @@ export default function ProjectsSection() {
 
   const projects: Project[] = [
     {
-      title: "Portfolio",
-      description: "My personal portfolio showcasing my work and skills",
-      image: "/assets/projects/portfolio.png",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI", "Framer Motion",],
-      link: "https://abhinav-mahajan.vercel.app/",
-      github: "https://github.com/abhinav-m22/portfolio-v2",
-      details: "This portfolio is a showcase of my work and skills as a developer. It features a clean and modern design, with sections highlighting my projects, skills, and experience. The site is built using Next.js and TypeScript, ensuring a fast and responsive user experience. The use of Tailwind CSS allows for easy customization and styling, while Framer Motion adds smooth animations to enhance the overall look and feel.",
+      title: "Repolix",
+      description: "AI-Powered GitHub Repository Assistant",
+      image: "/assets/projects/repolix.png",
+      tags: ["Next.js", "TypeScript", "Gemini AI", "Stripe", "Clerk", "Prisma", "PostgreSQL"],
+      link: "https://repolix.vercel.app",
+      github: "https://github.com/abhinav-m22/repolix",
+      details: "Repolix is an AI-powered web application that streamlines GitHub workflows by providing intelligent repository analysis and insights. It accelerates code reviews, enhances team collaboration, and simplifies onboarding with automated documentation. Key features include contextual codebase Q&A, commit summaries, and real-time repository metrics.",
     },
     {
       title: "JobScout.ai",
@@ -63,7 +63,7 @@ export default function ProjectsSection() {
       title: "FashionGen",
       description: "Your Style, Your Story: Fashion Reimagined with GenAI",
       image: "/assets/projects/fashiongen.png",
-      tags: ["React.js", "Node.js", "FastAPI", "OpenAI", "Firebase", "Gemini", "SQL"],
+      tags: ["React.js", "Node.js", "FastAPI", "OpenAI", "Firebase", "Gemini AI", "SQL"],
       link: "#",
       github: "https://github.com/abhinav-m22/FashionGen",
       details:
